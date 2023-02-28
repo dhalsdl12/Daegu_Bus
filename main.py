@@ -26,9 +26,9 @@ driver.switch_to.frame(driver.find_element(By.XPATH, '/html/body/iframe'))
 station_name = driver.find_element(By.XPATH, '//*[@id="searchTxt"]')
 station_name.send_keys(busstation)
 station_name.send_keys(Keys.RETURN)
+time.sleep(1)
 
-
-station_list = driver.find_elements(By.XPATH, '//*[@id="bsList"]/ul')
-
-for station in station_list:
-    print('check')
+station_list = driver.find_elements(By.XPATH, '//*[@id="bsList"]/ul/li')
+for i in range(len(station_list)):
+    station_name = station_list[i].find_element(By.XPATH, './a/div[1]/h6')
+    print(station_name.text)
