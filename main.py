@@ -21,7 +21,7 @@ driver.get("https://businfo.daegu.go.kr/")
 
 busstation = input('[정류소, 노선, 목적지]를 입력하세요 : ')
 
-# iframe으로 감싸져 있을때 해결책
+# iframe으로 감싸져 있을때 해결책 
 driver.switch_to.frame(driver.find_element(By.XPATH, '/html/body/iframe'))
 station_name = driver.find_element(By.XPATH, '//*[@id="searchTxt"]')
 station_name.send_keys(busstation)
