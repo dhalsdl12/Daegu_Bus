@@ -26,7 +26,7 @@ driver.switch_to.frame(driver.find_element(By.XPATH, '/html/body/iframe'))
 station_name = driver.find_element(By.XPATH, '//*[@id="searchTxt"]')
 station_name.send_keys(busstation)
 station_name.send_keys(Keys.RETURN)
-time.sleep(1)
+time.sleep(0.5)
 
 print('정류소 번호를 입력하세요')
 station_list = driver.find_elements(By.XPATH, '//*[@id="bsList"]/ul/li')
@@ -38,3 +38,8 @@ for i in range(len(station_list)):
     station_name = station_list[i].find_element(By.XPATH, './a/div[1]/h6')
     print(str(i + 1) + ' : ' + station_name.text)
 number = int(input('숫자 : ')) - 1
+
+station = 'selectBS' + str(number)
+station_button = driver.find_element(By.XPATH, '//*[@id="' + station + '"]/a/div[1]/h6')
+station_button.click()
+time.sleep(10)
