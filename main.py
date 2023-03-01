@@ -49,11 +49,27 @@ time.sleep(1)
 while True:
     bus_list = driver.find_elements(By.XPATH, '//*[@id="selectRouteList"]/ul/li')
     for bus in bus_list:
-        bus_number = bus.find_element(By.XPATH, './div/a/div/h6')
+        bus_number = bus.find_element(By.XPATH, './div/a/div/h6').text
         bus_location = bus.find_element(By.XPATH, './ul/li[1]/div[1]/div/div').text
         bus_time = bus.find_element(By.XPATH, './ul/li[1]/div[3]/span').text
+
         if bus_time == '전' or bus_time == '전전':
-            print(bus_number.text)
-            print(bus_location + ' ' * (40 - len(bus_location)) + bus_time)
+            if bus_number[0].isdigit():
+                print(bus_number + '       ' + bus_time)
+                print(bus_location)
+            else:
+                print(bus_number + '     ' + bus_time)
+                print(bus_location)
+        elif bus_time != '':
+            if int(bus_time[:-1]) <= 5:
+                if bus_number[0].isdigit():
+                    print(bus_number + '       ' + bus_time)
+                    print(bus_location)
+                else:
+                    print(bus_number + '     ' + bus_time)
+                    print(bus_location)
+            else:
+                break
+        print()
     print()
     time.sleep(10)
