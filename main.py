@@ -8,13 +8,15 @@ import time, sys, os
 
 # pip install pyinstaller
 # pyinstaller -F --add-binary "chromedriver.exe;." main.py
-if getattr(sys, 'frozen', False):
+'''if getattr(sys, 'frozen', False):
     chromedriver_path = os.path.join(sys._MEIPASS, "chromedriver.exe")
     driver = webdriver.Chrome(chromedriver_path)
 else:
-    driver = webdriver.Chrome('chromedriver')
+    driver = webdriver.Chrome('chromedriver')'''
 
-
+options = webdriver.ChromeOptions()
+options.add_experimental_option("excludeSwitches", ["enable-logging"])
+driver = webdriver.Chrome(options=options)
 # driver 실행
 driver.get("https://businfo.daegu.go.kr/")
 
@@ -42,4 +44,16 @@ number = int(input('숫자 : ')) - 1
 station = 'selectBS' + str(number)
 station_button = driver.find_element(By.XPATH, '//*[@id="' + station + '"]/a/div[1]/h6')
 station_button.click()
-time.sleep(10)
+time.sleep(1)
+
+while True:
+    bus_list = driver.find_elements(By.XPATH, '//*[@id="selectRouteList"]/ul/li')
+    for bus in bus_list:
+        bus_number = bus.find_element(By.XPATH, './div/a/div/h6')
+        bus_location = bus.find_element(By.XPATH, './ul/li[1]/div[1]/div/div').text
+        bus_time = bus.find_element(By.XPATH, './ul/li[1]/div[3]/span').text
+        if bus_time == '전' or bus_time == '전전':
+            print(bus_number.text)
+            print(bus_location + ' ' * (40 - len(bus_location)) + bus_time)
+    print()
+    time.sleep(10)
