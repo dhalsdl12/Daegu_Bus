@@ -34,4 +34,4 @@ async def bus_numbers(ctx, *, number=None):
         await ctx.channel.send(bus_number[i])
         await ctx.channel.send(bus_location[i])
 
-bot.run('MTA4MDQ1NTYwMDY5OTM2MzM1OA.G3kR62.rMTV9jffFYLFSPefkIjj1MXT-qRqBnv8r0ivZ4')
+bot.run('discord boy key')
