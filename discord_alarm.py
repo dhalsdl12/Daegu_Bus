@@ -19,19 +19,25 @@ async def inpue_message(ctx, *, message=None):
 @bot.command(name='station')
 async def bus_station(ctx, *, message=None):
     global msg
-    msg = message
-    arr = stations(msg)
-    for i in range(len(arr)):
-        tmp = str(arr[i][0]) + ' : ' + arr[i][1]
-        await ctx.channel.send(tmp)
+    if message == None:
+        await ctx.channel.send(f'정류장 이름을 입력해 주세요')
+    else:
+        msg = message
+        arr = stations(msg)
+        for i in range(len(arr)):
+            tmp = str(arr[i][0]) + ' : ' + arr[i][1]
+            await ctx.channel.send(tmp)
 
 @bot.command(name='bus')
 async def bus_numbers(ctx, *, number=None):
     global num
-    num = number
-    bus_number, bus_location = busses(int(num), msg)
-    for i in range(len(bus_number)):
-        await ctx.channel.send(bus_number[i])
-        await ctx.channel.send(bus_location[i])
+    if number == None:
+        await ctx.channel.send(f'정류장 번호를 입력해 주세요')
+    else:
+        num = number
+        bus_number, bus_location = busses(int(num), msg)
+        for i in range(len(bus_number)):
+            await ctx.channel.send(bus_number[i])
+            await ctx.channel.send(bus_location[i])
 
-bot.run('discord boy key')
+bot.run('Discord bot Key')
